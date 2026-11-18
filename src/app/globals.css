@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   DESIGN TOKENS
+   ────────────────────────────────────────────────────────────── */
+:root {
+  --bg: #08090d;
+  --bg-2: #101219;
+  --card: #141720;
+  --card-2: #1a1e29;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.14);
+  --fg: #f5f5f7;
+  --fg-2: #969ba8;
+  --fg-3: #5d6270;
+
+  /* Electric indigo → violet, with a cool cyan "signal" used sparingly */
+  --accent: #6d7cff;
+  --accent-2: #a77bff;
+  --signal: #7ee8fa;
+  --success: #3ddc97;
+  --danger: #ff6b7a;
+  --warning: #ffb86b;
+
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 28px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --section-y: clamp(6rem, 14vw, 11rem);
+  --max-w: 1360px;
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-signal: var(--signal);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+
+  --font-sans: var(--font-sans-face), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif-face), ui-serif, Georgia, serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, monospace;
+
+  --ease-out-expo: var(--ease-out);
+  --radius-card: var(--radius);
+  --radius-card-lg: var(--radius-lg);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   BASE
+   ────────────────────────────────────────────────────────────── */
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 70%, transparent);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Hide native cursor only when our custom cursor is active (fine pointers). */
+html.has-custom-cursor,
+html.has-custom-cursor a,
+html.has-custom-cursor button {
+  cursor: none;
+}
+html.has-custom-cursor input,
+html.has-custom-cursor textarea,
+html.has-custom-cursor select {
+  cursor: text;
+}
+
+/* Fine film grain over the whole page — subtle art-direction texture. */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ──────────────────────────────────────────────────────────────
+   COMPONENT UTILITIES
+   ────────────────────────────────────────────────────────────── */
+@utility container-x {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+
+@utility display {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+@utility hairline {
+  border-color: var(--line);
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--bg-2) 62%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--line);
+}
+
+@utility text-gradient {
+  background: linear-gradient(100deg, var(--fg) 10%, var(--accent) 55%, var(--accent-2) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Serif italic accent words inside display headings */
+.accent-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* Dotted grid backdrop */
+.bg-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+.marquee-pause:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Tech orbit rotation */
+@keyframes orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes orbit-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--success) 60%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+.status-dot {
+  animation: pulse-dot 2.2s var(--ease-in-out) infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+/* Hero ambient light drift */
+@keyframes glow-drift { 0%,100% { transform: translate3d(0,0,0) scale(1) } 50% { transform: translate3d(-4%,3%,0) scale(1.08) } }
+.hero-glow { animation: glow-drift 14s var(--ease-in-out) infinite; }
+.hero-glow-2 { animation: glow-drift 18s var(--ease-in-out) infinite reverse; }
+
+/* Service glyph micro-animations */
+@keyframes glyph-pulse { 0%,100% { opacity: .3 } 50% { opacity: .9 } }
+@keyframes glyph-blink { 0%,100% { opacity: .35 } 50% { opacity: 1 } }
+@keyframes glyph-drop { 0% { transform: translateY(0); opacity: 1 } 70% { transform: translateY(80px); opacity: .9 } 100% { transform: translateY(90px); opacity: 0 } }
+@keyframes glyph-draw { from { stroke-dashoffset: 120 } to { stroke-dashoffset: 0 } }
+.glyph { color: var(--fg-2); }
+.glyph-active .glyph-pulse { animation: glyph-pulse 2.4s var(--ease-in-out) infinite; }
+.glyph-active .glyph-blink { animation: glyph-blink 1.6s var(--ease-in-out) infinite; }
+.glyph-active .glyph-drop { animation: glyph-drop 2.8s var(--ease-in-out) infinite; }
+.glyph-active .glyph-draw { stroke-dasharray: 120; animation: glyph-draw 1.6s var(--ease-out) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

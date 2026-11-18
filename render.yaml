@@ -1,0 +1,39 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Create the service from this file: Render Dashboard → New → Blueprint → pick your repo.
+# Secret env vars (sync:false) are entered in the Render dashboard, not here.
+services:
+  - type: web
+    name: studio-three        # rename to your agency
+    runtime: node
+    region: singapore         # closest Render region to India
+    plan: starter             # $7/mo, always on. Use "free" to trial (cold starts, no disk).
+    branch: main
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /robots.txt
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22.22.1"
+      - key: NEXT_PUBLIC_SHOW_PLACEHOLDERS
+        value: "false"         # hide "To be confirmed" markers + sample testimonials in production
+      # --- set these in the dashboard (Environment tab) ---
+      - key: DATABASE_URL       # Supabase → Session pooler string + ?sslmode=require
+        sync: false
+      - key: AUTH_SECRET        # 48+ random chars
+        sync: false
+      - key: IP_HASH_SALT       # random string
+        sync: false
+      - key: NEXT_PUBLIC_SITE_URL   # e.g. https://studio-three.onrender.com (or your domain)
+        sync: false
+      - key: NEXT_PUBLIC_BRAND_NAME
+        sync: false
+      - key: NEXT_PUBLIC_CONTACT_EMAIL
+        sync: false
+    # Uncomment to let the admin panel's image upload persist (Starter plan only).
+    # Otherwise put photos in public/images/ and reference them as /images/name.jpg.
+    # disk:
+    #   name: uploads
+    #   mountPath: /var/data
+    #   sizeGB: 1
+    # and add an env var:  UPLOAD_DIR = /var/data/uploads

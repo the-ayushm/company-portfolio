@@ -1,0 +1,23 @@
+# Local PostgreSQL for development.
+# Usage: docker compose up -d
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: agency-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: agency
+      POSTGRES_PASSWORD: agency_dev_password
+      POSTGRES_DB: agency
+    ports:
+      - "5442:5432"
+    volumes:
+      - agency_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agency -d agency"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  agency_pgdata:
