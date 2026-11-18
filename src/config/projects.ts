@@ -10,13 +10,13 @@ import type { ProjectContent } from "@/types/content";
  */
 export const projectsConfig: ProjectContent[] = [
   {
-    slug: "soft7-whatsapp-crm",
-    title: "SOFT7",
+    slug: "whatsapp-business-crm",
+    title: "WhatsApp Business CRM",
     category: "WhatsApp Business CRM & Automation Platform",
     summary:
       "A comprehensive WhatsApp Business solution that helps businesses manage customer conversations, automate communication and improve engagement.",
     overview:
-      "SOFT7 brings WhatsApp Business communication into a single CRM workspace. Teams manage every customer conversation from a unified inbox, organise contacts, assign conversations to team members, and run template-based campaigns and automated workflows on top of the WhatsApp Business API.",
+      "The platform brings WhatsApp Business communication into a single CRM workspace. Teams manage every customer conversation from a unified inbox, organise contacts, assign conversations to team members, and run template-based campaigns and automated workflows on top of the WhatsApp Business API.",
     problem:
       "Businesses that talk to customers on WhatsApp quickly outgrow a single phone. Conversations get scattered across devices, nobody knows who is handling which customer, follow-ups slip, and there is no structured way to run campaigns or automate repetitive replies.",
     solution:
