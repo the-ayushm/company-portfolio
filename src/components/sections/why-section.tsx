@@ -37,19 +37,25 @@ const ChatVisual = (
   </div>
 );
 
-const TeamVisual = (
-  <div aria-hidden className="mt-6 flex items-center">
-    {["A", "P", "R"].map((l, i) => (
-      <span
-        key={l}
-        className="-ml-3 grid size-14 place-items-center rounded-full border border-line-strong bg-card-2 text-lg font-medium first:ml-0 transition-[margin] duration-500 ease-[var(--ease-out)] group-hover:-ml-1 group-hover:first:ml-0"
-        style={{ boxShadow: `0 0 0 4px var(--card)`, color: ["var(--fg)", "var(--accent)", "var(--accent-2)"][i] }}
-      >
-        {l}
-      </span>
-    ))}
-    <span className="ml-4 h-px flex-1 bg-gradient-to-r from-accent to-transparent" />
-    <span className="eyebrow ml-3">One system</span>
+const MilestoneVisual = (
+  <div aria-hidden className="mt-6">
+    <div className="relative flex items-center justify-between">
+      <span className="absolute inset-x-2 top-1/2 h-px -translate-y-1/2 bg-line-strong" />
+      <span className="absolute left-2 top-1/2 h-px w-0 -translate-y-1/2 bg-gradient-to-r from-accent to-accent-2 transition-[width] duration-1000 ease-[var(--ease-out)] group-hover:w-[calc(100%-1rem)]" />
+      {["Kickoff", "Demo", "Review", "Launch"].map((label, i) => (
+        <span key={label} className="relative flex flex-col items-center gap-2">
+          <span
+            className="size-3 rounded-full border border-line-strong bg-card transition-colors duration-500 group-hover:border-accent group-hover:bg-accent"
+            style={{ transitionDelay: `${i * 150}ms` }}
+          />
+        </span>
+      ))}
+    </div>
+    <div className="mt-3 flex justify-between eyebrow">
+      {["Kickoff", "Demo", "Review", "Launch"].map((label) => (
+        <span key={label}>{label}</span>
+      ))}
+    </div>
   </div>
 );
 
@@ -79,7 +85,7 @@ const items: Item[] = [
   { title: "Scalable architecture", text: "Clean modular codebases, well-modelled databases and APIs designed to grow with you.", Icon: Layers, span: "lg:col-span-4", visual: LayersVisual },
   { title: "Modern technology stack", text: "TypeScript, Next.js, Node.js, PostgreSQL — proven, maintainable tools with large ecosystems.", Icon: Cpu, span: "lg:col-span-4" },
   { title: "Transparent communication", text: "Regular updates, visible progress and honest conversations about scope and trade-offs.", Icon: MessagesSquare, span: "lg:col-span-4", visual: ChatVisual },
-  { title: "Collaborative development", text: "Three engineers working as one team, with you involved at every milestone.", Icon: Users, span: "lg:col-span-6", visual: TeamVisual },
+  { title: "Collaborative development", text: "You stay involved at every milestone — shared demos, early feedback and no surprises at launch.", Icon: Users, span: "lg:col-span-6", visual: MilestoneVisual },
   { title: "Long-term technical support", text: "Maintenance, improvements and new features after launch — when you need a partner, not a hand-off.", Icon: LifeBuoy, span: "lg:col-span-6" },
 ];
 
@@ -89,7 +95,7 @@ export function WhySection() {
       <div className="container-x">
         <SectionHeading
           id="why-title"
-          index="05"
+          index="04"
           eyebrow="Why work with us"
           title={["More Than Developers.", { text: "Your Technology Partners.", serif: true }]}
         />

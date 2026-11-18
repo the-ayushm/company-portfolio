@@ -20,7 +20,7 @@ export function TechEcosystem() {
       <div className="container-x">
         <SectionHeading
           id="tech-title"
-          index="07"
+          index="06"
           eyebrow="Technology"
           title={["Powered by", { text: "Modern", serif: true }, "Technology."]}
           description="The tools we work with day to day. Each project uses the subset that fits its requirements — not every technology on every project."

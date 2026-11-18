@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
-import { BriefcaseBusiness, ExternalLink, HelpCircle, Inbox, LayoutDashboard, Layers, LogOut, Menu, MessageSquareQuote, Settings, Share2, Users, X } from "lucide-react";
+import { BriefcaseBusiness, ExternalLink, HelpCircle, Inbox, LayoutDashboard, Layers, LogOut, Menu, MessageSquareQuote, Settings, Share2, X } from "lucide-react";
 import { LogoMark } from "@/components/layout/logo";
 import { api } from "@/components/admin/api-client";
 import { cn } from "@/lib/utils/cn";
@@ -13,7 +13,6 @@ const nav = [
   { href: "/admin/inquiries", label: "Inquiries", Icon: Inbox },
   { href: "/admin/projects", label: "Projects", Icon: BriefcaseBusiness },
   { href: "/admin/services", label: "Services", Icon: Layers },
-  { href: "/admin/team", label: "Team", Icon: Users },
   { href: "/admin/testimonials", label: "Testimonials", Icon: MessageSquareQuote },
   { href: "/admin/faqs", label: "FAQ", Icon: HelpCircle },
   { href: "/admin/social-links", label: "Social links", Icon: Share2 },

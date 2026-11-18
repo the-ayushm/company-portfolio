@@ -5,7 +5,7 @@ export const mainNav: NavItem[] = [
   { id: "home", label: "Home", href: "/#home" },
   { id: "services", label: "Services", href: "/#services" },
   { id: "work", label: "Work", href: "/#work" },
-  { id: "about", label: "About", href: "/#about" },
+  { id: "why", label: "About", href: "/#why" },
   { id: "testimonials", label: "Testimonials", href: "/#testimonials" },
   { id: "contact", label: "Contact", href: "/#contact" },
 ];

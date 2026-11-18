@@ -18,7 +18,7 @@ export async function ContactSection() {
       <div className="container-x grid gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <Reveal className="mb-6 flex items-center gap-3" y={12}>
-            <span className="font-mono text-xs text-accent">09</span>
+            <span className="font-mono text-xs text-accent">08</span>
             <span className="h-px w-10 bg-line-strong" aria-hidden />
             <span className="eyebrow">Start a project</span>
           </Reveal>

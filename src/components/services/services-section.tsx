@@ -9,7 +9,7 @@ export async function ServicesSection() {
       <div className="container-x">
         <SectionHeading
           id="services-title"
-          index="02"
+          index="01"
           eyebrow="Services"
           title={["Technology Solutions", { text: "Built Around", serif: true }, "Your Business."]}
           description="Eight disciplines, one team. We combine product thinking with solid engineering to deliver software that fits the way your business actually works."

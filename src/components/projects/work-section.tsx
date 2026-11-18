@@ -10,7 +10,7 @@ export async function WorkSection() {
       <div className="container-x">
         <SectionHeading
           id="work-title"
-          index="03"
+          index="02"
           eyebrow="Selected work"
           title={["Real Systems,", { text: "Delivered", serif: true }, "for Real Businesses."]}
           description="A selection of platforms we have designed and engineered — from WhatsApp automation and workforce management to e-commerce, ERP and CRM."

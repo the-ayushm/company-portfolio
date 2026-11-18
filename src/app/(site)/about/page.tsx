@@ -1,4 +1,3 @@
-import { TeamSection } from "@/components/team/team-section";
 import { WhySection } from "@/components/sections/why-section";
 import { ProcessSection } from "@/components/sections/process-section";
 import { TechEcosystem } from "@/components/sections/tech-ecosystem";
@@ -9,7 +8,7 @@ import { breadcrumbLd, JsonLd } from "@/lib/seo/json-ld";
 
 export const metadata = pageMetadata({
   title: "About Us",
-  description: "A collaborative team of three developers building practical, scalable and reliable software for businesses, startups and enterprises.",
+  description: "A software engineering studio building practical, scalable and reliable software for businesses, startups and enterprises.",
   path: "/about",
 });
 
@@ -27,7 +26,6 @@ export default function AboutPage() {
           Start a Project
         </ButtonLink>
       </PageHeader>
-      <TeamSection />
       <ProcessSection />
       <WhySection />
       <TechEcosystem />

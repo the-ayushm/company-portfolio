@@ -1,6 +1,5 @@
 import { Hero } from "@/components/hero/hero";
 import { CapabilitiesMarquee } from "@/components/sections/capabilities-marquee";
-import { TeamSection } from "@/components/team/team-section";
 import { ServicesSection } from "@/components/services/services-section";
 import { WorkSection } from "@/components/projects/work-section";
 import { ProcessSection } from "@/components/sections/process-section";
@@ -23,7 +22,6 @@ export default async function HomePage() {
       <JsonLd data={websiteLd()} />
       <Hero />
       <CapabilitiesMarquee />
-      <TeamSection />
       <ServicesSection />
       <WorkSection />
       <ProcessSection />

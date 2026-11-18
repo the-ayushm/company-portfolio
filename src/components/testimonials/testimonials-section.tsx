@@ -12,7 +12,7 @@ export async function TestimonialsSection() {
       <div className="container-x">
         <SectionHeading
           id="testimonials-title"
-          index="06"
+          index="05"
           eyebrow="Client feedback"
           title={["What Our", { text: "Clients", serif: true }, "Say."]}
           description="We only publish feedback that clients have approved, in their own words."

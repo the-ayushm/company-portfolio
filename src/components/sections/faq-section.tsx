@@ -13,7 +13,7 @@ export async function FaqSection() {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHeading
             id="faq-title"
-            index="08"
+            index="07"
             eyebrow="FAQ"
             align="left"
             title={["Questions,", { text: "answered.", serif: true }]}

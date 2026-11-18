@@ -6,7 +6,7 @@ services:
     name: studio-three        # rename to your agency
     runtime: node
     region: singapore         # closest Render region to India
-    plan: starter             # $7/mo, always on. Use "free" to trial (cold starts, no disk).
+    plan: free                # $0. Spins down after 15 min idle (see keep-alive below). Upgrade to "starter" ($7/mo) for always-on + disk.
     branch: main
     buildCommand: npm install --include=dev && npm run build
     startCommand: npm start

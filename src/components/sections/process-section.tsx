@@ -73,7 +73,7 @@ export function ProcessSection() {
       <div className="container-x">
         <SectionHeading
           id="process-title"
-          index="04"
+          index="03"
           eyebrow="How we work"
           title={["From Idea to Production.", { text: "We Build It Together.", serif: true }]}
           description="A clear, collaborative process — so you always know what's being built, why, and what comes next."

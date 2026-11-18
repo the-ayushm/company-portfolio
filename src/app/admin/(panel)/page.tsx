@@ -11,21 +11,19 @@ import { isEmailConfigured } from "@/lib/email/notify";
 export default async function AdminDashboard() {
   await connection();
   const prisma = getPrisma();
-  const [byStatus, recent, projects, noScreens, testimonials, approved, team] = await Promise.all([
+  const [byStatus, recent, projects, noScreens, testimonials, approved] = await Promise.all([
     prisma.contactInquiry.groupBy({ by: ["status"], _count: { _all: true } }),
     prisma.contactInquiry.findMany({ orderBy: { createdAt: "desc" }, take: 6, select: { id: true, fullName: true, projectType: true, status: true, createdAt: true } }),
     prisma.project.count(),
     prisma.project.count({ where: { coverImage: null, images: { none: {} } } }),
     prisma.testimonial.count({ where: { isPlaceholder: true, published: true } }),
     prisma.testimonial.count({ where: { clientApproved: true, published: true, isPlaceholder: false } }),
-    prisma.teamMember.count({ where: { OR: [{ role: null }, { bio: null }, { photoUrl: null }] } }),
   ]);
   const counts = Object.fromEntries(byStatus.map((s) => [s.status, s._count._all])) as Record<string, number>;
   const totalInquiries = Object.values(counts).reduce((a, b) => a + b, 0);
 
   const checklist = [
     { done: siteConfig.brand.name !== "Studio Three", text: "Set the final brand name (NEXT_PUBLIC_BRAND_NAME)" },
-    { done: team === 0, text: "Complete team roles, bios and photos", href: "/admin/team" },
     { done: noScreens === 0, text: `Upload real screenshots (${noScreens} project${noScreens === 1 ? "" : "s"} without)`, href: "/admin/projects" },
     { done: approved > 0, text: "Add at least one client-approved testimonial", href: "/admin/testimonials" },
     { done: testimonials === 0 || !siteConfig.showPlaceholderTestimonials, text: "Remove or hide sample testimonials before launch", href: "/admin/testimonials" },
