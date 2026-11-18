@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { Navbar } from "@/components/navigation/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Logo } from "@/components/layout/logo";
-import { Cursor } from "@/components/animations/cursor";
 import { PageLoader } from "@/components/animations/page-loader";
 import { SmoothScroll } from "@/components/animations/smooth-scroll";
 
@@ -31,7 +30,6 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
       <Suspense>
         <SmoothScroll />
       </Suspense>
-      <Cursor />
       <Suspense fallback={<NavbarFallback />}>
         <Navbar />
       </Suspense>
