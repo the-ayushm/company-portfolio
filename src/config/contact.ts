@@ -48,8 +48,5 @@ export const labelFor = (
   value: string,
 ): string => list.find((o) => o.value === value)?.label ?? value;
 
-export const socialDefaults = [
-  { platform: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/" },
-  { platform: "github", label: "GitHub", url: "https://github.com/" },
-  { platform: "instagram", label: "Instagram", url: "https://www.instagram.com/" },
-];
+/** Only WhatsApp is shown publicly. Add it in /admin → Social links: platform "whatsapp", URL https://wa.me/<number>. */
+export const socialDefaults: { platform: string; label: string; url: string }[] = [];

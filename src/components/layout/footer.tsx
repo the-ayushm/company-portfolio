@@ -1,28 +1,13 @@
 import Link from "next/link";
 import { cacheLife } from "next/cache";
-import { ArrowUpRight, Mail, Globe } from "lucide-react";
-import { GithubIcon as Github, InstagramIcon as Instagram, LinkedinIcon as Linkedin, XIcon } from "@/components/ui/brand-icons";
+import { ArrowUpRight, Mail } from "lucide-react";
+import { WhatsappIcon } from "@/components/ui/brand-icons";
 import { siteConfig } from "@/config/site";
 import { mainNav } from "@/config/navigation";
 import { getProjects, getServices, getSiteSettings, getSocialLinks } from "@/lib/data/content";
 import { Logo } from "@/components/layout/logo";
 import { ButtonLink } from "@/components/ui/button";
 import { FooterReveal } from "@/components/layout/footer-reveal";
-
-const socialIcon = (platform: string) => {
-  switch (platform) {
-    case "linkedin":
-      return Linkedin;
-    case "github":
-      return Github;
-    case "instagram":
-      return Instagram;
-    case "x":
-      return XIcon;
-    default:
-      return Globe;
-  }
-};
 
 async function CopyrightYear() {
   "use cache";
@@ -60,24 +45,20 @@ export async function Footer() {
               <p className="mt-6 text-sm font-light leading-relaxed text-porcelain/70">
                 We design, build, automate and support custom software — from first requirements to deployment and beyond.
               </p>
-              <ul className="mt-6 flex gap-2">
-                {social.map((s) => {
-                  const Icon = socialIcon(s.platform);
-                  return (
-                    <li key={s.platform}>
-                      <a
-                        href={s.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={s.label}
-                        className="grid size-10 place-items-center rounded-[12px] bg-porcelain/[0.07] text-porcelain/75 transition-all duration-300 hover:-translate-y-0.5 hover:bg-lime hover:text-pine"
-                      >
-                        <Icon className="size-4" aria-hidden />
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
+              {social.map((s) => (
+                <a
+                  key={s.platform}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-flex items-center gap-2.5 rounded-full bg-porcelain/[0.07] py-2 pl-2 pr-4 text-sm text-porcelain/85 transition-all duration-300 hover:-translate-y-0.5 hover:bg-lime hover:text-pine"
+                >
+                  <span className="grid size-7 place-items-center rounded-full bg-lime text-pine">
+                    <WhatsappIcon className="size-4" />
+                  </span>
+                  {s.label || "WhatsApp"}
+                </a>
+              ))}
             </div>
 
             <FooterColumn title="Navigate">
@@ -119,15 +100,6 @@ export async function Footer() {
               </Link>
             </div>
           </div>
-        </div>
-
-        {/* Oversized wordmark */}
-        {/* line-height 0.74 trims Poppins' ascent/descent so the lowercase letters and the dot sit flush on the bottom edge */}
-        <div aria-hidden className="pointer-events-none mt-4 select-none overflow-hidden">
-          <p className="whitespace-nowrap text-center text-[24vw] font-medium leading-[0.74] tracking-[-0.06em] text-porcelain/[0.08]">
-            {siteConfig.brand.wordmark}
-            <span className="text-lime">.</span>
-          </p>
         </div>
       </FooterReveal>
     </footer>

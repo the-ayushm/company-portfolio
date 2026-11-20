@@ -1,5 +1,6 @@
 import { Mail } from "lucide-react";
-import { getSiteSettings } from "@/lib/data/content";
+import { getSiteSettings, getSocialLinks } from "@/lib/data/content";
+import { WhatsappIcon } from "@/components/ui/brand-icons";
 import { TextReveal } from "@/components/animations/text-reveal";
 import { Reveal } from "@/components/animations/reveal";
 import { ContactForm } from "@/components/contact/contact-form";
@@ -9,7 +10,7 @@ import { IsoBlock, IsoScene } from "@/components/ui/iso-block";
 const nextSteps = ["We review your requirements", "We schedule a discovery call", "You receive a written proposal"];
 
 export async function ContactSection() {
-  const settings = await getSiteSettings();
+  const [settings, social] = await Promise.all([getSiteSettings(), getSocialLinks()]);
   return (
     <section id="contact" aria-labelledby="contact-title" className="section-y relative bg-bg-2">
       <div className="container-x grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-8">
@@ -43,6 +44,20 @@ export async function ContactSection() {
                 </span>
                 {settings.contactEmail}
               </a>
+              {social.map((s) => (
+                <a
+                  key={s.platform}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 rounded-full bg-porcelain py-2 pl-2 pr-5 text-sm text-pine transition-transform duration-300 hover:-translate-y-0.5"
+                >
+                  <span className="grid size-8 place-items-center rounded-full bg-lime">
+                    <WhatsappIcon className="size-4" />
+                  </span>
+                  {s.label || "WhatsApp"}
+                </a>
+              ))}
             </div>
             <IsoScene width={150} height={150} className="pointer-events-none absolute bottom-8 right-2 hidden opacity-95 sm:grid">
               <IsoBlock x={0} y={0} w={64} d={64} h={12} color="sage" float phase={0} />

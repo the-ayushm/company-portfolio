@@ -188,7 +188,8 @@ export async function getSocialLinks(): Promise<SocialLinkContent[]> {
     "social links",
     async () => {
       const rows = await getPrisma().socialLink.findMany({
-        where: { published: true },
+        // The public site only shows the WhatsApp contact link.
+        where: { published: true, platform: "whatsapp" },
         orderBy: [{ order: "asc" }],
       });
       return rows.map((s) => ({ platform: s.platform, label: s.label, url: s.url }));
