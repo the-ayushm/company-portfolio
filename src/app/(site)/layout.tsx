@@ -9,7 +9,7 @@ import { SmoothScroll } from "@/components/animations/smooth-scroll";
 function NavbarFallback() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className="container-x flex h-[72px] items-center">
+      <div className="container-x flex h-[76px] items-center">
         <Logo />
       </div>
     </header>

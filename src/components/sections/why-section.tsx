@@ -1,118 +1,66 @@
-import { Briefcase, Puzzle, Layers, Cpu, MessagesSquare, Users, LifeBuoy } from "lucide-react";
-import type { ReactNode } from "react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/animations/reveal";
-import { SpotlightCard } from "@/components/sections/spotlight-card";
+import { MiniBlock, type ClayName } from "@/components/ui/iso-block";
 import { cn } from "@/lib/utils/cn";
 
-type Item = { title: string; text: string; Icon: typeof Briefcase; span: string; visual?: ReactNode };
-
-const LayersVisual = (
-  <div aria-hidden className="relative mt-6 h-24 [perspective:600px]">
-    {[0, 1, 2].map((i) => (
-      <span
-        key={i}
-        className="absolute inset-x-6 h-12 rounded-xl border border-line-strong bg-white/[0.03] transition-transform duration-700 ease-[var(--ease-out)] [transform:rotateX(55deg)] group-hover:[transform:rotateX(55deg)_translateZ(var(--z))]"
-        style={{ top: `${i * 18}px`, ["--z" as string]: `${(2 - i) * 22}px`, borderColor: i === 0 ? "var(--accent)" : undefined }}
-      />
-    ))}
-  </div>
-);
-
-const ChatVisual = (
-  <div aria-hidden className="mt-6 flex flex-col gap-2 text-xs">
-    {["Sprint review shared", "Staging build ready for feedback", "Next milestone: integrations"].map((t, i) => (
-      <span
-        key={t}
-        className={cn(
-          "w-fit rounded-xl border border-line bg-white/[0.03] px-3 py-2 text-fg-2 transition-all duration-500 ease-[var(--ease-out)] group-hover:translate-x-0 group-hover:opacity-100",
-          i > 0 && "translate-x-3 opacity-50",
-        )}
-        style={{ transitionDelay: `${i * 90}ms` }}
-      >
-        <span className="mr-2 inline-block size-1.5 rounded-full bg-success align-middle" />
-        {t}
-      </span>
-    ))}
-  </div>
-);
-
-const MilestoneVisual = (
-  <div aria-hidden className="mt-6">
-    <div className="relative flex items-center justify-between">
-      <span className="absolute inset-x-2 top-1/2 h-px -translate-y-1/2 bg-line-strong" />
-      <span className="absolute left-2 top-1/2 h-px w-0 -translate-y-1/2 bg-gradient-to-r from-accent to-accent-2 transition-[width] duration-1000 ease-[var(--ease-out)] group-hover:w-[calc(100%-1rem)]" />
-      {["Kickoff", "Demo", "Review", "Launch"].map((label, i) => (
-        <span key={label} className="relative flex flex-col items-center gap-2">
-          <span
-            className="size-3 rounded-full border border-line-strong bg-card transition-colors duration-500 group-hover:border-accent group-hover:bg-accent"
-            style={{ transitionDelay: `${i * 150}ms` }}
-          />
-        </span>
-      ))}
-    </div>
-    <div className="mt-3 flex justify-between eyebrow">
-      {["Kickoff", "Demo", "Review", "Launch"].map((label) => (
-        <span key={label}>{label}</span>
-      ))}
-    </div>
-  </div>
-);
+type Item = { title: string; lead: string; key: string; color: ClayName; dark?: boolean };
 
 const items: Item[] = [
   {
-    title: "Business-focused engineering",
-    text: "We start from your goals, workflows and constraints — then choose the technology. Every feature should earn its place by solving a real business problem.",
-    Icon: Briefcase,
-    span: "lg:col-span-7",
-    visual: (
-      <div aria-hidden className="mt-8 grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-xs">
-        <div className="flex flex-col gap-2">
-          {["Manual follow-ups", "Scattered data", "Slow reporting"].map((t) => (
-            <span key={t} className="rounded-lg border border-dashed border-line-strong px-3 py-2 text-fg-3">{t}</span>
-          ))}
-        </div>
-        <span className="font-mono text-accent transition-transform duration-500 group-hover:translate-x-1">→</span>
-        <div className="flex flex-col gap-2">
-          {["Automated workflows", "One source of truth", "Live dashboards"].map((t) => (
-            <span key={t} className="rounded-lg border border-line bg-accent/[0.08] px-3 py-2 text-fg transition-colors duration-500 group-hover:border-accent/40">{t}</span>
-          ))}
-        </div>
-      </div>
-    ),
+    title: "Built around your business",
+    lead: "We start from your goals, workflows and constraints — then choose the technology.",
+    key: "No forcing your team into a template.",
+    color: "sage",
   },
-  { title: "Custom-built solutions", text: "No forcing your business into a template. We build around the way your team actually works.", Icon: Puzzle, span: "lg:col-span-5" },
-  { title: "Scalable architecture", text: "Clean modular codebases, well-modelled databases and APIs designed to grow with you.", Icon: Layers, span: "lg:col-span-4", visual: LayersVisual },
-  { title: "Modern technology stack", text: "TypeScript, Next.js, Node.js, PostgreSQL — proven, maintainable tools with large ecosystems.", Icon: Cpu, span: "lg:col-span-4" },
-  { title: "Transparent communication", text: "Regular updates, visible progress and honest conversations about scope and trade-offs.", Icon: MessagesSquare, span: "lg:col-span-4", visual: ChatVisual },
-  { title: "Collaborative development", text: "You stay involved at every milestone — shared demos, early feedback and no surprises at launch.", Icon: Users, span: "lg:col-span-6", visual: MilestoneVisual },
-  { title: "Long-term technical support", text: "Maintenance, improvements and new features after launch — when you need a partner, not a hand-off.", Icon: LifeBuoy, span: "lg:col-span-6" },
+  {
+    title: "Systems that scale",
+    lead: "Clean modular code, well-modelled databases and APIs on a modern TypeScript, Next.js, Node.js and PostgreSQL stack —",
+    key: "built to grow with you.",
+    color: "lilac",
+  },
+  {
+    title: "You're never in the dark",
+    lead: "Regular demos, visible progress and honest conversations about scope and trade-offs —",
+    key: "no surprises at launch.",
+    color: "apricot",
+  },
+  {
+    title: "Support after launch",
+    lead: "Maintenance, improvements and new features when you need them —",
+    key: "a partner, not a hand-off.",
+    color: "lime",
+    dark: true,
+  },
 ];
 
 export function WhySection() {
   return (
-    <section id="why" aria-labelledby="why-title" className="section-y relative bg-bg-2/40">
+    <section id="why" aria-labelledby="why-title" className="section-y relative bg-bg-2">
       <div className="container-x">
         <SectionHeading
           id="why-title"
           index="04"
-          eyebrow="Why work with us"
-          title={["More Than Developers.", { text: "Your Technology Partners.", serif: true }]}
+          eyebrow="Why us"
+          title={["More than developers.", { text: "Your technology partner.", hl: true }]}
         />
-        <ul className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
-          {items.map(({ title, text, Icon, span, visual }, i) => (
-            <Reveal as="li" key={title} delay={(i % 3) * 0.08} className={cn(span, i === 0 && "sm:col-span-2")}>
-              <SpotlightCard className="flex h-full flex-col p-7 sm:p-8">
-                <div className="relative flex items-center justify-between">
-                  <span className="grid size-11 place-items-center rounded-xl border border-line bg-white/[0.03] text-accent">
-                    <Icon className="size-5" aria-hidden />
-                  </span>
-                  <span className="font-mono text-xs text-fg-3">{String(i + 1).padStart(2, "0")}</span>
+        <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {items.map((it, i) => (
+            <Reveal as="li" key={it.title} delay={i * 0.08}>
+              <article
+                className={cn(
+                  "group card-hover flex h-full flex-col rounded-[var(--radius-lg)] p-7",
+                  it.dark ? "pine-panel on-pine shadow-[var(--shadow-card)]" : "card",
+                )}
+              >
+                <div className="flex items-start justify-between">
+                  <MiniBlock color={it.color} size={34} />
+                  <span className={cn("font-mono text-xs", it.dark ? "text-porcelain/55" : "text-fg-3")}>{String(i + 1).padStart(2, "0")}</span>
                 </div>
-                <h3 className="relative mt-8 text-xl font-medium tracking-[-0.03em] sm:text-2xl">{title}</h3>
-                <p className="relative mt-3 max-w-xl leading-relaxed text-fg-2">{text}</p>
-                {visual && <div className="relative mt-auto">{visual}</div>}
-              </SpotlightCard>
+                <h3 className={cn("mt-10 text-[1.35rem] font-medium tracking-[-0.03em]", it.dark ? "text-porcelain" : "text-pine")}>{it.title}</h3>
+                <p className={cn("mt-3 font-light leading-relaxed", it.dark ? "text-porcelain/75" : "text-fg-2")}>
+                  {it.lead} <span className={cn("font-medium", it.dark ? "text-lime" : "text-pine")}>{it.key}</span>
+                </p>
+              </article>
             </Reveal>
           ))}
         </ul>

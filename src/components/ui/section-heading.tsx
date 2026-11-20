@@ -8,39 +8,37 @@ type Props = {
   eyebrow: string;
   title: TextSegment[];
   description?: ReactNode;
+  /** "split" = heading in cols 1–7 with the index label right; "left" = single stacked column. */
   align?: "left" | "split";
   className?: string;
   titleClassName?: string;
   id?: string;
 };
 
-/** Editorial section header: numbered eyebrow, large display title, optional lede. */
-export function SectionHeading({ index, eyebrow, title, description, align = "split", className, titleClassName, id }: Props) {
+export function IndexLabel({ index, eyebrow, className }: { index: string; eyebrow: string; className?: string }) {
   return (
-    <div
-      className={cn(
-        "grid gap-8",
-        align === "split" && "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:gap-16",
-        className,
-      )}
-    >
-      <div>
-        <Reveal className="mb-6 flex items-center gap-3" y={12}>
-          <span className="font-mono text-xs text-accent">{index}</span>
-          <span className="h-px w-10 bg-line-strong" aria-hidden />
-          <span className="eyebrow">{eyebrow}</span>
-        </Reveal>
-        <TextReveal
-          id={id}
-          segments={title}
-          className={cn("display text-[clamp(2.5rem,6.2vw,5.6rem)] text-balance", titleClassName)}
-        />
+    <span className={cn("eyebrow inline-flex items-center gap-2", className)}>
+      <span aria-hidden className="size-1.5 rounded-full bg-lime ring-1 ring-lime-deep/50" />
+      {index} / {eyebrow}
+    </span>
+  );
+}
+
+export function SectionHeading({ index, eyebrow, title, description, align = "split", className, titleClassName, id }: Props) {
+  const split = align === "split";
+  return (
+    <div className={cn("grid gap-5", split && "lg:grid-cols-12 lg:gap-x-8", className)}>
+      <Reveal y={10} className={cn(split && "lg:order-2 lg:col-span-5 lg:col-start-8 lg:flex lg:justify-end lg:pt-4")}>
+        <IndexLabel index={index} eyebrow={eyebrow} />
+      </Reveal>
+      <div className={cn(split && "lg:order-1 lg:col-span-7 lg:row-start-1")}>
+        <TextReveal id={id} segments={title} className={cn("h-section text-balance", titleClassName)} />
+        {description && (
+          <Reveal delay={0.15} className="lead mt-6 max-w-xl">
+            {description}
+          </Reveal>
+        )}
       </div>
-      {description && (
-        <Reveal delay={0.15} className="max-w-md text-[1.05rem] leading-relaxed text-fg-2 lg:pb-3">
-          {description}
-        </Reveal>
-      )}
     </div>
   );
 }

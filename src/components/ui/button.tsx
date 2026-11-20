@@ -1,72 +1,48 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
-type Variant = "primary" | "ghost" | "subtle";
+/** primary = pine pill · ghost = pine outline · lime = lime pill (on pine) · onDark = porcelain outline (on pine) */
+type Variant = "primary" | "ghost" | "lime" | "onDark" | "subtle";
 type Size = "md" | "lg";
 
 const base =
-  "group/btn relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full font-medium tracking-tight " +
-  "transition-[transform,background-color,border-color,color,box-shadow] duration-500 ease-[var(--ease-out)] " +
-  "active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 whitespace-nowrap select-none";
+  "group/btn relative isolate inline-flex items-center justify-center gap-3 overflow-hidden rounded-full font-medium tracking-[-0.01em] " +
+  "transition-[transform,background-color,border-color,color,box-shadow] duration-300 ease-[var(--ease-out)] " +
+  "hover:-translate-y-px active:translate-y-0 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 whitespace-nowrap select-none";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-fg text-bg shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_10px_40px_-10px_rgba(109,124,255,0.55)] hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2),0_16px_50px_-8px_rgba(109,124,255,0.75)]",
-  ghost: "border border-line-strong text-fg hover:border-fg/40 bg-white/[0.02] backdrop-blur-sm",
+  primary: "bg-pine text-porcelain hover:bg-pine-2 shadow-[0_10px_24px_-12px_rgba(14,43,36,0.6)]",
+  ghost: "border-[1.5px] border-pine text-pine hover:text-porcelain",
+  lime: "bg-lime text-pine hover:bg-[#d3fa55] shadow-[0_10px_24px_-12px_rgba(198,244,50,0.6)]",
+  onDark: "border-[1.5px] border-porcelain/30 text-porcelain hover:border-porcelain/60 hover:bg-porcelain/10",
   subtle: "text-fg-2 hover:text-fg",
 };
 
 const sizes: Record<Size, string> = {
-  md: "h-11 px-5 text-[0.9rem]",
-  lg: "h-14 px-7 text-[0.98rem]",
+  md: "h-12 pl-6 pr-6 text-[0.92rem] has-[.btn-arrow]:pr-3",
+  lg: "h-[60px] pl-7 pr-7 text-[1rem] has-[.btn-arrow]:pr-4",
 };
-
-/** Label that rolls upward on hover (two stacked copies). */
-function RollLabel({ children }: { children: ReactNode }) {
-  return (
-    <span className="relative block overflow-hidden">
-      <span className="block transition-transform duration-500 ease-[var(--ease-out)] group-hover/btn:-translate-y-full">
-        {children}
-      </span>
-      <span
-        aria-hidden
-        className="absolute inset-0 block translate-y-full transition-transform duration-500 ease-[var(--ease-out)] group-hover/btn:translate-y-0"
-      >
-        {children}
-      </span>
-    </span>
-  );
-}
 
 function Inner({ children, icon, variant }: { children: ReactNode; icon?: boolean; variant: Variant }) {
   return (
     <>
-      {variant === "primary" && (
+      {variant === "ghost" && (
         <span
           aria-hidden
-          className="absolute inset-0 -z-0 translate-y-full rounded-full bg-gradient-to-r from-accent to-accent-2 transition-transform duration-500 ease-[var(--ease-out)] group-hover/btn:translate-y-0"
+          className="absolute inset-0 -z-10 origin-left scale-x-0 bg-pine transition-transform duration-500 ease-[var(--ease-out)] group-hover/btn:scale-x-100"
         />
       )}
-      <span className={cn("relative z-10", variant === "primary" && "group-hover/btn:text-white transition-colors duration-500")}>
-        <RollLabel>{children}</RollLabel>
-      </span>
+      <span className="relative">{children}</span>
       {icon && (
         <span
           className={cn(
-            "relative z-10 grid size-6 place-items-center overflow-hidden rounded-full transition-colors duration-500",
-            variant === "primary" ? "bg-bg text-fg group-hover/btn:bg-white group-hover/btn:text-bg" : "bg-white/10",
+            "btn-arrow relative grid size-[26px] shrink-0 place-items-center rounded-full transition-transform duration-300 ease-[var(--ease-snap)] group-hover/btn:translate-x-1",
+            variant === "lime" ? "bg-pine text-lime" : variant === "onDark" ? "bg-porcelain text-pine" : "bg-lime text-pine",
           )}
         >
-          <ArrowUpRight
-            aria-hidden
-            className="size-3.5 transition-transform duration-500 ease-[var(--ease-out)] group-hover/btn:translate-x-4 group-hover/btn:-translate-y-4"
-          />
-          <ArrowUpRight
-            aria-hidden
-            className="absolute size-3.5 -translate-x-4 translate-y-4 transition-transform duration-500 ease-[var(--ease-out)] group-hover/btn:translate-x-0 group-hover/btn:translate-y-0"
-          />
+          <ArrowRight aria-hidden className="size-3.5" strokeWidth={2.4} />
         </span>
       )}
     </>
@@ -84,7 +60,7 @@ export function ButtonLink({
   ...props
 }: CommonProps & Omit<ComponentProps<typeof Link>, "children" | "className">) {
   return (
-    <Link data-cursor="hover" className={cn(base, variants[variant], sizes[size], className)} {...props}>
+    <Link className={cn(base, variants[variant], sizes[size], className)} {...props}>
       <Inner icon={icon} variant={variant}>
         {children}
       </Inner>
@@ -101,7 +77,7 @@ export function Button({
   ...props
 }: CommonProps & Omit<ComponentProps<"button">, "children" | "className">) {
   return (
-    <button data-cursor="hover" className={cn(base, variants[variant], sizes[size], className)} {...props}>
+    <button className={cn(base, variants[variant], sizes[size], className)} {...props}>
       <Inner icon={icon} variant={variant}>
         {children}
       </Inner>

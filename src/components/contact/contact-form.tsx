@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils/cn";
 type Status = "idle" | "submitting" | "success" | "error";
 
 const inputCls =
-  "peer w-full rounded-xl border border-line bg-white/[0.02] px-4 pb-2.5 pt-6 text-[0.95rem] text-fg outline-none transition-[border-color,background-color,box-shadow] duration-300 placeholder:text-transparent hover:border-line-strong focus:border-accent/60 focus:bg-white/[0.04] focus:shadow-[0_0_0_4px_rgba(109,124,255,0.12)] aria-[invalid=true]:border-danger/60";
+  "peer w-full rounded-[14px] border border-line-strong bg-card px-4 pb-2.5 pt-6 text-base text-pine outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-transparent hover:border-pine/40 focus:border-pine focus:shadow-[0_0_0_4px_rgba(198,244,50,0.45)] focus-visible:outline-none aria-[invalid=true]:border-danger";
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -85,8 +85,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-[var(--radius-lg)] border border-line bg-card p-6 sm:p-10">
-      <div aria-hidden className="pointer-events-none absolute -right-40 -top-40 size-96 rounded-full bg-accent/10 blur-3xl" />
+    <div className="card relative overflow-hidden p-6 sm:p-10">
       <AnimatePresence mode="wait">
         {status === "success" ? (
           <SuccessState
@@ -175,15 +174,15 @@ export function ContactForm() {
                 <input type="checkbox" className="peer sr-only" aria-invalid={!!errors.consent} {...register("consent")} />
                 <span
                   aria-hidden
-                  className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-md border border-line-strong transition-colors peer-checked:border-accent peer-checked:bg-accent peer-focus-visible:ring-2 peer-focus-visible:ring-signal [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100"
+                  className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-md border border-line-strong bg-card transition-colors peer-checked:border-pine peer-checked:bg-pine peer-focus-visible:ring-4 peer-focus-visible:ring-lime/60 [&>svg]:opacity-0 peer-checked:[&>svg]:opacity-100"
                 >
-                  <svg viewBox="0 0 12 12" className="size-3 text-white transition-opacity">
+                  <svg viewBox="0 0 12 12" className="size-3 text-lime transition-opacity">
                     <path d="M2 6.5 L5 9 L10 3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>
                 <span>
                   I agree that my details will be stored and used to respond to this inquiry, as described in the{" "}
-                  <Link href="/privacy" className="text-fg underline underline-offset-4 hover:text-accent">
+                  <Link href="/privacy" className="font-medium text-pine underline underline-offset-4 hover:no-underline">
                     privacy notice
                   </Link>
                   .
@@ -200,7 +199,7 @@ export function ContactForm() {
                   initial={{ opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="flex items-center gap-2 rounded-xl border border-danger/30 bg-danger/[0.06] px-4 py-3 text-sm text-danger"
+                  className="flex items-center gap-2 rounded-[14px] border border-danger/30 bg-danger/[0.06] px-4 py-3 text-[13px] text-danger"
                 >
                   <AlertCircle className="size-4 shrink-0" aria-hidden />
                   {serverError}
@@ -234,7 +233,7 @@ function Field({ label, name, error, required, children }: { label: string; name
         {children}
         <label
           htmlFor={name}
-          className="pointer-events-none absolute left-4 top-2 text-[0.7rem] font-medium uppercase tracking-[0.08em] text-fg-3 transition-colors peer-focus:text-accent"
+          className="pointer-events-none absolute left-4 top-2 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-fg-3 transition-colors peer-focus:text-pine"
         >
           {label}
           {required && " *"}
@@ -247,7 +246,7 @@ function Field({ label, name, error, required, children }: { label: string; name
 
 function ErrorText({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <motion.p id={id} role="alert" initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-1.5 flex items-center gap-1.5 text-xs text-danger">
+    <motion.p id={id} role="alert" initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="mt-1.5 flex items-center gap-1.5 text-[13px] text-danger">
       <AlertCircle className="size-3.5" aria-hidden />
       {children}
     </motion.p>
@@ -271,7 +270,7 @@ function ChipGroup({
 }) {
   return (
     <fieldset aria-invalid={!!error}>
-      <legend className="mb-3 text-[0.7rem] font-medium uppercase tracking-[0.08em] text-fg-3">{legend} *</legend>
+      <legend className="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-fg-3">{legend} *</legend>
       <div className="flex flex-wrap gap-2">
         {options.map((o) => {
           const on = selected === o.value;
@@ -279,12 +278,12 @@ function ChipGroup({
             <label
               key={o.value}
               className={cn(
-                "relative cursor-pointer select-none rounded-full border px-4 py-2 text-sm transition-all duration-300 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-signal",
-                on ? "border-accent bg-accent/15 text-fg" : "border-line text-fg-2 hover:border-line-strong hover:text-fg",
+                "relative cursor-pointer select-none rounded-full px-4 py-2 text-[13px] transition-colors duration-300 has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-lime/60",
+                on ? "text-porcelain" : "bg-bg text-pine hover:bg-bg-2",
               )}
             >
               <input type="radio" value={o.value} className="sr-only" {...register(name)} />
-              {on && <motion.span layoutId={`chip-${name}`} className="absolute inset-0 -z-0 rounded-full bg-accent/10" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
+              {on && <motion.span layoutId={`chip-${name}`} className="absolute inset-0 -z-0 rounded-full bg-pine" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
               <span className="relative">{o.label}</span>
             </label>
           );
@@ -305,28 +304,22 @@ function SuccessState({ onReset }: { onReset: () => void }) {
       role="status"
       aria-live="polite"
     >
-      <div className="relative">
-        {[0, 1, 2].map((i) => (
-          <motion.span
-            key={i}
-            aria-hidden
-            className="absolute inset-0 rounded-full border border-success/40"
-            initial={{ scale: 1, opacity: 0.8 }}
-            animate={{ scale: 2.4, opacity: 0 }}
-            transition={{ duration: 2, delay: 0.3 + i * 0.4, repeat: Infinity, ease: "easeOut" }}
-          />
-        ))}
-        <svg viewBox="0 0 80 80" className="relative size-24">
-          <motion.circle cx="40" cy="40" r="36" fill="none" stroke="var(--success)" strokeWidth="2" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, ease: "easeOut" }} />
-          <motion.path d="M25 41 L35 51 L56 30" fill="none" stroke="var(--success)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.7, ease: "easeOut" }} />
-        </svg>
-      </div>
-      <h3 className="display text-4xl sm:text-5xl">
-        Thank you<span className="accent-serif text-success">.</span>
-      </h3>
-      <p className="max-w-md leading-relaxed text-fg-2">
-        Your inquiry has been received. We&apos;ll review your requirements and get back to you to schedule a discovery
-        conversation.
+      <motion.div
+        aria-hidden
+        className="relative"
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ y: { duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }, opacity: { duration: 0.2 } }}
+      >
+        <span className="grid size-24 place-items-center rounded-[28px] bg-lime shadow-[0_10px_0_#8FB514,0_24px_40px_-12px_rgba(14,43,36,0.4)]">
+          <svg viewBox="0 0 80 80" className="size-12">
+            <motion.path d="M22 42 L35 55 L59 28" fill="none" stroke="#0E2B24" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.45, delay: 0.45, ease: "easeOut" }} />
+          </svg>
+        </span>
+      </motion.div>
+      <h3 className="display mt-4 max-w-sm text-3xl text-balance sm:text-4xl">Request received — we&apos;ll reply within 24 hours.</h3>
+      <p className="max-w-md font-light leading-relaxed text-fg-2">
+        We&apos;ll review your requirements and get back to you to schedule a discovery conversation.
       </p>
       <Button variant="ghost" onClick={onReset}>
         Send another inquiry

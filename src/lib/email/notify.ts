@@ -64,7 +64,7 @@ export async function notifyNewInquiry(inquiry: InquiryForEmail): Promise<void> 
         <table cellpadding="6" style="border-collapse:collapse">${rows
           .map(([k, v]) => `<tr><td style="color:#666">${esc(k)}</td><td><strong>${esc(v)}</strong></td></tr>`)
           .join("")}</table>
-        <p style="white-space:pre-wrap;border-left:3px solid #6d7cff;padding-left:12px">${esc(inquiry.description)}</p>
+        <p style="white-space:pre-wrap;border-left:3px solid #8FB514;padding-left:12px">${esc(inquiry.description)}</p>
         <p><a href="${esc(adminUrl)}">Open in admin</a></p></div>`,
     });
   } catch (err) {

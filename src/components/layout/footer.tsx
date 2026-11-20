@@ -31,35 +31,23 @@ async function CopyrightYear() {
 }
 
 export async function Footer() {
-  const [services, projects, social, settings] = await Promise.all([
-    getServices(),
-    getProjects(),
-    getSocialLinks(),
-    getSiteSettings(),
-  ]);
+  const [services, projects, social, settings] = await Promise.all([getServices(), getProjects(), getSocialLinks(), getSiteSettings()]);
 
   return (
-    <footer className="relative overflow-hidden border-t border-line bg-bg-2">
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-30 [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-64 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-accent/20 blur-[140px]"
-      />
+    <footer className="on-pine relative overflow-hidden bg-pine-3 text-porcelain">
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(198,244,50,0.08)_1.2px,transparent_1.3px)] [background-size:26px_26px] [mask-image:linear-gradient(to_bottom,black,transparent_75%)]" />
       <FooterReveal>
-        <div className="container-x relative pt-28 pb-10">
+        <div className="container-x relative pt-24 pb-10 sm:pt-28">
           {/* Final CTA */}
-          <div className="flex flex-col gap-10 border-b border-line pb-20 lg:flex-row lg:items-end lg:justify-between">
-            <h2 className="display max-w-4xl text-[clamp(2.6rem,7vw,6.5rem)] text-balance">
-              Let&apos;s turn your next <span className="accent-serif text-gradient">big idea</span> into reality.
+          <div className="flex flex-col gap-10 border-b border-porcelain/10 pb-16 lg:flex-row lg:items-end lg:justify-between">
+            <h2 className="h-section max-w-3xl text-balance">
+              Let&apos;s turn your busywork into a <span className="hl">system that runs itself.</span>
             </h2>
-            <div className="flex flex-col gap-4 sm:flex-row lg:flex-col lg:items-end">
-              <ButtonLink href="/#contact" size="lg">
-                Start a Project
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center lg:flex-col lg:items-end">
+              <ButtonLink href="/#contact" size="lg" variant="lime">
+                Book a free audit
               </ButtonLink>
-              <a
-                href={`mailto:${settings.contactEmail}`}
-                className="group inline-flex items-center gap-2 text-fg-2 transition-colors hover:text-fg"
-              >
+              <a href={`mailto:${settings.contactEmail}`} className="group inline-flex items-center gap-2 text-porcelain/70 transition-colors hover:text-porcelain">
                 <Mail className="size-4" aria-hidden />
                 <span className="underline-offset-4 group-hover:underline">{settings.contactEmail}</span>
               </a>
@@ -68,10 +56,9 @@ export async function Footer() {
 
           <div className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
             <div className="max-w-xs">
-              <Logo />
-              <p className="mt-5 text-sm leading-relaxed text-fg-2">
-                A collaborative software engineering team building practical, scalable digital solutions — from
-                requirements to deployment and beyond.
+              <Logo tone="dark" />
+              <p className="mt-6 text-sm font-light leading-relaxed text-porcelain/70">
+                We design, build, automate and support custom software — from first requirements to deployment and beyond.
               </p>
               <ul className="mt-6 flex gap-2">
                 {social.map((s) => {
@@ -83,7 +70,7 @@ export async function Footer() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={s.label}
-                        className="grid size-10 place-items-center rounded-full border border-line-strong text-fg-2 transition-all duration-300 hover:-translate-y-0.5 hover:border-fg/40 hover:text-fg"
+                        className="grid size-10 place-items-center rounded-[12px] bg-porcelain/[0.07] text-porcelain/75 transition-all duration-300 hover:-translate-y-0.5 hover:bg-lime hover:text-pine"
                       >
                         <Icon className="size-4" aria-hidden />
                       </a>
@@ -119,15 +106,15 @@ export async function Footer() {
             </FooterColumn>
           </div>
 
-          <div className="flex flex-col gap-4 border-t border-line pt-8 text-xs text-fg-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 border-t border-porcelain/10 pt-8 text-xs text-porcelain/60 sm:flex-row sm:items-center sm:justify-between">
             <p>
               © <CopyrightYear /> {siteConfig.brand.name}. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <Link href="/privacy" className="transition-colors hover:text-fg">
+              <Link href="/privacy" className="transition-colors hover:text-porcelain">
                 Privacy notice
               </Link>
-              <Link href="/sitemap.xml" className="transition-colors hover:text-fg">
+              <Link href="/sitemap.xml" className="transition-colors hover:text-porcelain">
                 Sitemap
               </Link>
             </div>
@@ -136,8 +123,9 @@ export async function Footer() {
 
         {/* Oversized wordmark */}
         <div aria-hidden className="pointer-events-none select-none overflow-hidden">
-          <p className="display -mb-[0.18em] whitespace-nowrap text-center text-[18vw] leading-none text-white/[0.035]">
-            {siteConfig.brand.name}
+          <p className="-mb-[0.22em] whitespace-nowrap text-center text-[25vw] font-medium leading-none tracking-[-0.06em] text-porcelain/[0.08]">
+            {siteConfig.brand.wordmark}
+            <span className="text-lime">.</span>
           </p>
         </div>
       </FooterReveal>
@@ -148,7 +136,7 @@ export async function Footer() {
 function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="eyebrow mb-5">{title}</h3>
+      <h3 className="mb-5 font-mono text-xs uppercase tracking-[0.08em] text-porcelain/60">{title}</h3>
       <ul className="flex flex-col gap-3">{children}</ul>
     </div>
   );
@@ -157,15 +145,9 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
 function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <li>
-      <Link
-        href={href}
-        className="group inline-flex items-center gap-1 text-sm text-fg-2 transition-colors duration-300 hover:text-fg"
-      >
+      <Link href={href} className="group inline-flex items-center gap-1 text-sm text-porcelain/70 transition-colors duration-300 hover:text-porcelain">
         {children}
-        <ArrowUpRight
-          aria-hidden
-          className="size-3 -translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
-        />
+        <ArrowUpRight aria-hidden className="size-3 -translate-x-1 text-lime opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
       </Link>
     </li>
   );

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { getProjects, getServices } from "@/lib/data/content";
 import { PageHeader } from "@/components/layout/page-header";
 import { ServiceGlyph } from "@/components/services/service-glyph";
@@ -7,7 +8,6 @@ import { ButtonLink } from "@/components/ui/button";
 import { pageMetadata } from "@/lib/seo/metadata";
 import { breadcrumbLd, JsonLd } from "@/lib/seo/json-ld";
 import { pad2 } from "@/lib/utils/format";
-import { cn } from "@/lib/utils/cn";
 
 export const metadata = pageMetadata({
   title: "Services",
@@ -23,32 +23,36 @@ export default async function ServicesPage() {
       <PageHeader
         eyebrow="Services"
         crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
-        title={["Technology solutions", { text: "built around", serif: true, gradient: true }, "your business."]}
+        title={["Every block of your business,", { text: "built to fit.", hl: true }]}
         description="From discovery to deployment and long-term support — here's what we build and how it helps."
       />
       <section aria-label="All services" className="container-x pb-[var(--section-y)]">
-        <ol className="flex flex-col">
+        <ol className="flex flex-col gap-4">
           {services.map((s, i) => {
             const work = projects.filter((p) => p.serviceSlugs.includes(s.slug));
             return (
-              <li key={s.slug} id={s.slug} className="scroll-mt-28 border-t border-line py-16 last:border-b">
-                <Reveal className={cn("grid gap-10 lg:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] lg:gap-16")}>
-                  <span className="font-mono text-sm text-accent">{pad2(i + 1)}</span>
+              <li key={s.slug} id={s.slug} className="scroll-mt-28">
+                <Reveal className="group card grid gap-8 p-7 sm:p-10 lg:grid-cols-[auto_minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-12">
+                  <div className="flex items-start gap-5 lg:flex-col">
+                    <span className="font-mono text-xs text-fg-3">{pad2(i + 1)}</span>
+                    <ServiceGlyph icon={s.icon} size={92} />
+                  </div>
                   <div>
-                    <h2 className="display text-[clamp(2rem,4vw,3.4rem)]">{s.title}</h2>
-                    <p className="mt-6 max-w-xl text-lg leading-relaxed text-fg-2">{s.description ?? s.shortDescription}</p>
-                    <div className="mt-8 flex flex-wrap gap-3">
-                      <ButtonLink href="/#contact">Discuss Project</ButtonLink>
+                    <h2 className="h-section text-[clamp(1.8rem,3vw,2.6rem)]">{s.title}</h2>
+                    <p className="mt-5 max-w-xl text-[1.05rem] font-light leading-relaxed text-fg-2">{s.description ?? s.shortDescription}</p>
+                    <div className="mt-7">
+                      <ButtonLink href="/#contact">Discuss this</ButtonLink>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-8">
-                    <ServiceGlyph icon={s.icon} className="size-28" />
+                  <div className="flex flex-col gap-7">
                     {s.technologies.length > 0 && (
                       <div>
                         <p className="eyebrow mb-3">Typical tools</p>
                         <ul className="flex flex-wrap gap-2">
                           {s.technologies.map((t) => (
-                            <li key={t} className="rounded-full border border-line px-3 py-1.5 text-xs text-fg-2">{t}</li>
+                            <li key={t} className="chip">
+                              {t}
+                            </li>
                           ))}
                         </ul>
                       </div>
@@ -59,8 +63,9 @@ export default async function ServicesPage() {
                         <ul className="flex flex-col gap-2">
                           {work.map((p) => (
                             <li key={p.slug}>
-                              <Link href={`/work/${p.slug}`} className="text-fg-2 underline-offset-4 transition-colors hover:text-fg hover:underline">
-                                {p.title} — <span className="text-fg-3">{p.category}</span>
+                              <Link href={`/work/${p.slug}`} className="group/l inline-flex items-center gap-1.5 text-pine underline-offset-4 hover:underline">
+                                {p.title} <span className="text-fg-2">— {p.category}</span>
+                                <ArrowUpRight className="size-3.5 shrink-0 transition-transform group-hover/l:-translate-y-0.5 group-hover/l:translate-x-0.5" aria-hidden />
                               </Link>
                             </li>
                           ))}

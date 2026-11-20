@@ -15,7 +15,7 @@ export function TiltCard({ children, className, max = 8 }: { children: ReactNode
   const rotateX = useTransform(sy, [0, 1], [max, -max]);
   const gx = useTransform(sx, (v) => `${v * 100}%`);
   const gy = useTransform(sy, (v) => `${v * 100}%`);
-  const glare = useMotionTemplate`radial-gradient(500px circle at ${gx} ${gy}, rgba(255,255,255,0.09), transparent 45%)`;
+  const glare = useMotionTemplate`radial-gradient(500px circle at ${gx} ${gy}, rgba(255,255,255,0.18), transparent 45%)`;
   const hover = useMotionValue(0);
   const glareOpacity = useSpring(hover, { stiffness: 200, damping: 30 });
 

@@ -6,13 +6,13 @@ export type TechItem = { name: string; group: TechGroup; color: string };
 export type TechGroup = "Frontend" | "Backend" | "Data" | "Commerce & Messaging";
 
 export const techStack: TechItem[] = [
-  { name: "Next.js", group: "Frontend", color: "#F5F5F7" },
+  { name: "Next.js", group: "Frontend", color: "#0E2B24" },
   { name: "React", group: "Frontend", color: "#61DAFB" },
   { name: "TypeScript", group: "Frontend", color: "#3178C6" },
   { name: "Tailwind CSS", group: "Frontend", color: "#38BDF8" },
   { name: "Node.js", group: "Backend", color: "#5FA04E" },
   { name: "REST APIs", group: "Backend", color: "#A78BFA" },
-  { name: "Socket.IO", group: "Backend", color: "#E5E7EB" },
+  { name: "Socket.IO", group: "Backend", color: "#0E2B24" },
   { name: "PostgreSQL", group: "Data", color: "#4169E1" },
   { name: "Prisma", group: "Data", color: "#7C8CFF" },
   { name: "MongoDB", group: "Data", color: "#47A248" },

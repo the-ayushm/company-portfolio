@@ -55,7 +55,7 @@ export default async function PrivacyPage() {
       body: (
         <>
           You can ask to access, correct or delete the information you submitted, or withdraw your consent, by emailing{" "}
-          <a href={`mailto:${contactEmail}`} className="text-fg underline underline-offset-4 hover:text-accent">
+          <a href={`mailto:${contactEmail}`} className="font-medium text-pine underline underline-offset-4 hover:no-underline">
             {contactEmail}
           </a>
           .
@@ -69,17 +69,17 @@ export default async function PrivacyPage() {
       <PageHeader
         eyebrow="Legal"
         crumbs={[{ label: "Home", href: "/" }, { label: "Privacy notice" }]}
-        title={["Privacy", { text: "notice.", serif: true }]}
+        title={["Privacy", { text: "notice.", hl: true }]}
         description={`How ${siteConfig.brand.name} handles the information you share with us through this website.`}
       />
       <section className="container-x pb-[var(--section-y)]">
-        <div className="max-w-3xl divide-y divide-line border-y border-line">
+        <div className="card max-w-3xl divide-y divide-line px-7 sm:px-10">
           {sections.map((s, i) => (
             <div key={s.title} className="grid gap-4 py-10 sm:grid-cols-[auto_1fr] sm:gap-10">
-              <span className="font-mono text-xs text-accent">{String(i + 1).padStart(2, "0")}</span>
+              <span className="font-mono text-xs text-fg-3">{String(i + 1).padStart(2, "0")}</span>
               <div>
-                <h2 className="text-xl font-medium tracking-[-0.02em]">{s.title}</h2>
-                <p className="mt-3 leading-relaxed text-fg-2">{s.body}</p>
+                <h2 className="text-xl font-medium tracking-[-0.02em] text-pine">{s.title}</h2>
+                <p className="mt-3 font-light leading-relaxed text-fg-2">{s.body}</p>
               </div>
             </div>
           ))}

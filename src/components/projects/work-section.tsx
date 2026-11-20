@@ -6,17 +6,17 @@ import { ButtonLink } from "@/components/ui/button";
 export async function WorkSection() {
   const projects = await getProjects();
   return (
-    <section id="work" aria-labelledby="work-title" className="section-y relative">
+    <section id="work" aria-labelledby="work-title" className="section-y relative bg-bg-2">
       <div className="container-x">
         <SectionHeading
           id="work-title"
           index="02"
-          eyebrow="Selected work"
-          title={["Real Systems,", { text: "Delivered", serif: true }, "for Real Businesses."]}
-          description="A selection of platforms we have designed and engineered — from WhatsApp automation and workforce management to e-commerce, ERP and CRM."
+          eyebrow="Case studies"
+          title={["Real systems,", { text: "running today.", hl: true }]}
+          description="Platforms we've designed and built for real businesses — WhatsApp CRM, event workforce management, e-commerce, ERP and CRM."
         />
         <ProjectStack projects={projects} />
-        <div className="mt-16 flex justify-center">
+        <div className="mt-14 flex justify-center">
           <ButtonLink href="/work" variant="ghost" size="lg">
             View all projects
           </ButtonLink>

@@ -8,11 +8,11 @@ export function PlaceholderChip({ label = "To be confirmed", className }: { labe
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border border-dashed border-warning/40 bg-warning/[0.06] px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-warning/90",
+        "inline-flex items-center gap-1.5 rounded-full border border-dashed border-[#CC8B5C]/60 bg-apricot/25 px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-pine",
         className,
       )}
     >
-      <span aria-hidden className="size-1 rounded-full bg-warning/80" />
+      <span aria-hidden className="size-1 rounded-full bg-[#CC8B5C]" />
       {label}
     </span>
   );

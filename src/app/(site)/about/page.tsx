@@ -19,11 +19,11 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About"
         crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
-        title={["A small team.", { text: "Serious engineering.", serif: true, gradient: true }]}
-        description="We take projects from initial requirements to development, deployment and ongoing maintenance — working closely with you at every step."
+        title={["A small team.", { text: "Serious engineering.", hl: true }]}
+        description="We take projects from first requirements to development, deployment and ongoing maintenance — working closely with you at every step."
       >
         <ButtonLink href="/#contact" size="lg" className="mt-10">
-          Start a Project
+          Book a free audit
         </ButtonLink>
       </PageHeader>
       <ProcessSection />

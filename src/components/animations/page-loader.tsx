@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import { siteConfig } from "@/config/site";
 
 const SESSION_KEY = "intro-played";
+const snap = [0.34, 1.56, 0.64, 1] as const;
 
 /**
- * Brief branded intro (≈1.3s) shown once per session.
- * Page content renders underneath immediately, so it never delays LCP-critical HTML.
+ * Branded intro (≈1.4s) shown once per session: the logo's three blocks drop into the pine
+ * square one by one, then the loader wipes away. Page content renders underneath immediately.
  */
 export function PageLoader() {
   const [show, setShow] = useState(true);
-  const [count, setCount] = useState(0);
 
   useEffect(() => {
     let played = false;
@@ -28,17 +28,8 @@ export function PageLoader() {
       setShow(false);
       return;
     }
-    const start = performance.now();
-    const duration = 1100;
-    let raf = 0;
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - start) / duration);
-      setCount(Math.round((1 - Math.pow(1 - p, 3)) * 100));
-      if (p < 1) raf = requestAnimationFrame(tick);
-      else setTimeout(() => setShow(false), 180);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    const t = setTimeout(() => setShow(false), 1450);
+    return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
@@ -46,38 +37,45 @@ export function PageLoader() {
     if (!show) window.dispatchEvent(new Event("intro:done"));
   }, [show]);
 
+  const drop = (delay: number) => ({
+    initial: { y: -70, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+    transition: { y: { duration: 0.5, delay, ease: snap }, opacity: { duration: 0.15, delay } },
+  });
+
   return (
     <AnimatePresence>
       {show && (
         <motion.div
           key="loader"
           aria-hidden
-          className="fixed inset-0 z-[120] flex flex-col justify-between bg-bg p-[var(--gutter)]"
-          exit={{ clipPath: "inset(0 0 100% 0)" }}
+          className="fixed inset-0 z-[120] grid place-items-center bg-bg"
           initial={{ clipPath: "inset(0 0 0% 0)" }}
-          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+          exit={{ clipPath: "inset(0 0 100% 0)" }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         >
-          <div className="flex items-center justify-between eyebrow">
-            <span>{siteConfig.brand.name}</span>
-            <span>Engineering studio</span>
-          </div>
-          <div className="flex items-end justify-between gap-6">
-            <div className="overflow-hidden">
-              <motion.p
-                className="display text-[clamp(2.5rem,8vw,7rem)]"
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              >
-                Build<span className="accent-serif text-accent"> / </span>Ship<span className="accent-serif text-accent"> / </span>Scale
-              </motion.p>
-            </div>
-            <span className="font-mono text-[clamp(2rem,6vw,5rem)] tabular-nums leading-none text-fg-2">
-              {String(count).padStart(3, "0")}
-            </span>
-          </div>
-          <div className="absolute inset-x-0 bottom-0 h-px bg-line">
-            <div className="h-full bg-gradient-to-r from-accent to-signal" style={{ width: `${count}%` }} />
+          <div className="flex flex-col items-center gap-6">
+            <motion.svg
+              viewBox="0 0 86 86"
+              className="size-24 overflow-visible drop-shadow-[0_14px_30px_rgba(14,43,36,0.25)]"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <rect width="86" height="86" rx="26" fill="#0E2B24" />
+              <motion.rect x="18" y="18" width="22" height="50" rx="9" fill="#A9C8B4" {...drop(0.3)} />
+              <motion.rect x="46" y="18" width="22" height="22" rx="9" fill="#C7BEF0" {...drop(0.55)} />
+              <motion.rect x="46" y="46" width="22" height="22" rx="9" fill="#C6F432" {...drop(0.8)} />
+            </motion.svg>
+            <motion.p
+              className="text-[1.6rem] font-medium tracking-[-0.05em] text-pine"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {siteConfig.brand.wordmark}
+              <span className="text-lime">.</span>
+            </motion.p>
           </div>
         </motion.div>
       )}

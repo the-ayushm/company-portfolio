@@ -6,14 +6,19 @@
  * Set NEXT_PUBLIC_BRAND_NAME in .env to override without touching code.
  */
 
-const brandName = process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || "Studio Three";
+const brandName = process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || "Nexor Automations";
+const [firstWord = brandName, ...restWords] = brandName.split(/\s+/);
 
 export const siteConfig = {
   brand: {
     name: brandName,
+    /** Lowercase wordmark ("nexor") followed by a lime full stop in the logo. */
+    wordmark: firstWord.toLowerCase(),
+    /** Small mono line under the wordmark ("AUTOMATIONS"). */
+    descriptor: restWords.join(" ").toUpperCase(),
     /** Short mark shown in the logo glyph. */
     monogram: process.env.NEXT_PUBLIC_BRAND_MONOGRAM?.trim() || brandName.charAt(0),
-    tagline: "Digital solutions & software engineering",
+    tagline: "Custom software, ERP, CRM & WhatsApp automation",
   },
   url: (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, ""),
   locale: "en_IN",
