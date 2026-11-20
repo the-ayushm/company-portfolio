@@ -122,8 +122,9 @@ export async function Footer() {
         </div>
 
         {/* Oversized wordmark */}
-        <div aria-hidden className="pointer-events-none select-none overflow-hidden">
-          <p className="-mb-[0.22em] whitespace-nowrap text-center text-[25vw] font-medium leading-none tracking-[-0.06em] text-porcelain/[0.08]">
+        {/* line-height 0.74 trims Poppins' ascent/descent so the lowercase letters and the dot sit flush on the bottom edge */}
+        <div aria-hidden className="pointer-events-none mt-4 select-none overflow-hidden">
+          <p className="whitespace-nowrap text-center text-[24vw] font-medium leading-[0.74] tracking-[-0.06em] text-porcelain/[0.08]">
             {siteConfig.brand.wordmark}
             <span className="text-lime">.</span>
           </p>
